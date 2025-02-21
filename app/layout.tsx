@@ -1,4 +1,3 @@
-import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
@@ -10,7 +9,7 @@ import { PageTransition } from "@/components/page-transition"
 import { SchemaMarkup } from "@/components/schema-markup"
 import { ScrollToTop } from "@/components/scroll-to-top"
 import { Toaster } from "@/components/ui/toaster"
-import ErrorBoundary from "@/components/error-boundary"
+import type React from "react"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -28,7 +27,6 @@ export const metadata: Metadata = {
     "Alanya villas",
     "Turkish property investment",
   ],
-  viewport: "width=device-width, initial-scale=1",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -43,7 +41,12 @@ export const metadata: Metadata = {
       },
     ],
   },
-    generator: 'v0.dev'
+}
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 }
 
 export default function RootLayout({
@@ -54,25 +57,20 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className={`${inter.className} flex flex-col min-h-full`}>
-        <ErrorBoundary>
-          <LanguageProvider>
-            <AuthProvider>
-              <ScrollToTop />
-              <Header />
-              <PageTransition>
-                <main className="flex-grow">{children}</main>
-              </PageTransition>
-              <Footer />
-              <SchemaMarkup />
-              <Toaster />
-            </AuthProvider>
-          </LanguageProvider>
-        </ErrorBoundary>
+        <LanguageProvider>
+          <AuthProvider>
+            <ScrollToTop />
+            <Header />
+            <PageTransition>
+              <main className="flex-grow">{children}</main>
+            </PageTransition>
+            <Footer />
+            <SchemaMarkup />
+            <Toaster />
+          </AuthProvider>
+        </LanguageProvider>
       </body>
     </html>
   )
 }
 
-
-
-import './globals.css'
